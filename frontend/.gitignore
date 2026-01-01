@@ -1,0 +1,34 @@
+# Dependencies (ไฟล์ไลบรารีขนาดใหญ่ ไม่ต้องเอาขึ้น)
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage
+
+# Next.js build output
+.next/
+out/
+build/
+
+# Environment Variables (รหัสผ่านและความลับ ห้ามเอาขึ้นเด็ดขาด!)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+frontend/.env.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Uploaded Images (รูปที่อัปโหลดตอนทดสอบ ไม่ต้องเอาขึ้น)
+backend/public/uploads/*
+!backend/public/uploads/.gitkeep
