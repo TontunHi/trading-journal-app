@@ -2,9 +2,6 @@
 
 > **"Master Your Trading Discipline"** – เครื่องมือจดบันทึกการเทรดสำหรับมืออาชีพ เปลี่ยนการพนันให้เป็นการลงทุนด้วยระบบและวินัย
 
-![Project Status](https://img.shields.io/badge/Status-Development-blue?style=flat-square)
-![Stack](https://img.shields.io/badge/Stack-Next.js%20%7C%20Express%20%7C%20MySQL-blueviolet?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 ## 📖 เกี่ยวกับโปรเจกต์ (About)
 
