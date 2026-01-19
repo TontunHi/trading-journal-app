@@ -6,7 +6,8 @@ import { Upload, X, Save, Trash2, Edit2, ExternalLink } from "lucide-react"
 import { Button, Input, Label, Textarea } from "@/components/ui/form-elements"
 import { cn } from "@/lib/utils"
 
-const API_Base = "http://localhost:5000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const SERVER_URL = API_URL.replace('/api', '');
 
 export function TradeDetailsModal({ trade, isOpen, onClose, onRefresh }) {
     const [isEditing, setIsEditing] = useState(false)

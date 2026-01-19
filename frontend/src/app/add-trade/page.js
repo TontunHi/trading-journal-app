@@ -11,7 +11,7 @@ import { Button, Input, Label, Textarea } from "@/components/ui/form-elements"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { CalculatorModal } from "@/components/CalculatorModal"
 
-const API_Base = "http://localhost:5000/api";
+const API_Base = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
 export default function AddTradePage() {
     const { user, loading: authLoading } = useAuth()

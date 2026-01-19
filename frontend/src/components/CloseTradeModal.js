@@ -6,7 +6,7 @@ import { Upload, X, Save } from "lucide-react"
 import { Button, Input, Label, Textarea } from "@/components/ui/form-elements"
 import { cn } from "@/lib/utils"
 
-const API_Base = "http://localhost:5000/api";
+const API_Base = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
 export function CloseTradeModal({ trade, isOpen, onClose, onRefresh }) {
     const [formData, setFormData] = useState({
