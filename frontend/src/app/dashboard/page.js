@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/form-elements"
 import Link from "next/link"
 import { PlusCircle, WalletCards } from "lucide-react"
 
-const API_Base = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_Base = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export default function Dashboard() {
   const { user, loading: authLoading } = useAuth()

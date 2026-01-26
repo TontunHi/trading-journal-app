@@ -10,7 +10,7 @@ import { useAuth } from "@/context/AuthContext"
 import { useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 
-const API_Base = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_Base = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export default function CalendarPage() {
     const { user, loading: authLoading } = useAuth()

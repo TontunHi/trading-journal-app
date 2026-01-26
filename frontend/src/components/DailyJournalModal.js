@@ -6,7 +6,7 @@ import { X, Save } from "lucide-react"
 import { Button, Input, Label } from "@/components/ui/form-elements"
 import { OrdersTable } from "@/components/OrdersTable"
 
-const API_Base = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_Base = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 export function DailyJournalModal({ userId, date, isOpen, onClose, summaryData, onRefresh, currency = 'USD' }) {
     const [formData, setFormData] = useState({
