@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  password_hash String
+  preferences   Json?          // For storing theme or other settings
+  createdAt     DateTime       @default(now())
+  trades        Trade[]
+  summaries     DailySummary[]
+}
+
+model Trade {
+  id           Int       @id @default(autoincrement())
+  user         User      @relation(fields: [userId], references: [id])
+  userId       Int
+  asset        String    // e.g., EURUSD, XAUUSD
+  currency     Currency  @default(USD)
+  timeframe    String?   // e.g., M15, H1, H4
+  session      String?   // e.g., London, NY
+  type         OrderType
+  entry_price  Float
+  tp           Float?
+  sl           Float?
+  lot_size     Float
+  status       Status    @default(OPEN)
+  close_reason Reason?
+  exit_price   Float?
+  pnl          Float?
+  notes        String?   @db.Text
+  images_path  Json?     // Keeping for backwards compatibility
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model DailySummary {
+  id            Int      @id @default(autoincrement())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int
+  date          DateTime @db.Date
+  deposit       Float    @default(0)
+  withdrawal    Float    @default(0)
+  manual_pnl    Float?
+  total_pnl     Float?
+  currency_type Currency
+
+  @@unique([userId, date, currency_type])
+}
+
+enum Currency {
+  USD
+  USC
+}
+
+enum OrderType {
+  BUY
+  SELL
+}
+
+enum Status {
+  OPEN
+  CLOSED
+}
+
+enum Reason {
+  TP
+  SL
+  BE
+  MANUAL
+}
