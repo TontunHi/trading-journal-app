@@ -34,6 +34,17 @@ export default function Dashboard() {
   
   const initialLoadDone = useRef(false)
 
+  // Load saved currency preference
+  useEffect(() => {
+    const saved = localStorage.getItem('trading-journal-currency')
+    if (saved) setCurrency(saved)
+  }, [])
+
+  const handleCurrencyChange = (c) => {
+    setCurrency(c)
+    localStorage.setItem('trading-journal-currency', c)
+  }
+
   useEffect(() => {
     if (!authLoading && !user) {
       router.push("/login")
@@ -135,7 +146,7 @@ export default function Dashboard() {
             {['USD', 'USC'].map(c => (
               <button
                 key={c}
-                onClick={() => setCurrency(c)}
+                onClick={() => handleCurrencyChange(c)}
                 className={cn(
                   "px-3 py-1.5 text-xs font-bold rounded-md transition-all flex items-center gap-1",
                   currency === c 

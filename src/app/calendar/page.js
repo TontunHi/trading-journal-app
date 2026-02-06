@@ -46,6 +46,17 @@ export default function CalendarPage() {
     const [selectedDate, setSelectedDate] = useState(null)
     const [currency, setCurrency] = useState('USD')
 
+    // Load saved currency preference
+    useEffect(() => {
+        const saved = localStorage.getItem('trading-journal-currency')
+        if (saved) setCurrency(saved)
+    }, [])
+
+    const handleCurrencyChange = (c) => {
+        setCurrency(c)
+        localStorage.setItem('trading-journal-currency', c)
+    }
+
     useEffect(() => {
         if (!authLoading && !user) {
             router.push("/login")
@@ -60,24 +71,28 @@ export default function CalendarPage() {
     const startDayOfWeek = startOfMonth(currentDate).getDay()
     const paddingDays = Array.from({ length: startDayOfWeek })
 
-    const fetchSummary = useCallback(async () => {
+    const fetchSummary = useCallback(async (signal) => {
         if (!user) return
         try {
             const monthStr = format(currentDate, 'yyyy-MM-dd')
             const res = await axios.get(`${API_Base}/calendar/summary`, {
-                params: { userId: user.id, month: monthStr, currency }
+                params: { userId: user.id, month: monthStr, currency },
+                signal
             })
             setSummaryData(res.data)
         } catch (error) {
+            if (axios.isCancel(error)) return
             console.error("Error fetching calendar summary:", error)
         }
     }, [user, currentDate, currency])
 
     useEffect(() => {
+        const controller = new AbortController()
         if (user) {
-            fetchSummary()
+            fetchSummary(controller.signal)
         }
-    }, [user, currentDate, currency])
+        return () => controller.abort()
+    }, [fetchSummary])
 
     // Calculate monthly stats
     const monthlyStats = useMemo(() => {
@@ -148,7 +163,7 @@ export default function CalendarPage() {
                         {['USD', 'USC'].map(c => (
                             <button
                                 key={c}
-                                onClick={() => setCurrency(c)}
+                                onClick={() => handleCurrencyChange(c)}
                                 className={cn(
                                     "px-3 py-1.5 text-xs font-bold rounded-md transition-all",
                                     currency === c 
